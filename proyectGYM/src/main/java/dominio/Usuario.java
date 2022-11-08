@@ -6,6 +6,8 @@
 package dominio;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -21,13 +23,14 @@ public class Usuario {
     private int Altura;
     private int Peso;
     private String Foto;
-    private Date FechaAlta;
+    private String FechaAlta;
+    private int Usuario_idUsuario;
 
     public Usuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(int idUsuario, String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto, Date FechaAlta) {
+    public Usuario(int idUsuario, String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto, String FechaAlta, int Usuario_idUsuario) {
         this.idUsuario = idUsuario;
         this.Nombre = Nombre;
         this.Correo = Correo;
@@ -37,10 +40,9 @@ public class Usuario {
         this.Altura = Altura;
         this.Peso = Peso;
         this.Foto = Foto;
-        this.FechaAlta = FechaAlta;
     }
 
-    public Usuario(String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto, Date FechaAlta) {
+    public Usuario(String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto) {
         this.Nombre = Nombre;
         this.Correo = Correo;
         this.Clave = Clave;
@@ -49,7 +51,10 @@ public class Usuario {
         this.Altura = Altura;
         this.Peso = Peso;
         this.Foto = Foto;
-        this.FechaAlta = FechaAlta;
+        LocalDate Fecha = LocalDate.now();
+        this.FechaAlta = Fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.Usuario_idUsuario = 0;
+        
     }
 
     public Usuario() {
@@ -127,13 +132,23 @@ public class Usuario {
         this.Foto = Foto;
     }
 
-    public Date getFechaAlta() {
+    public String getFechaAlta() {
         return FechaAlta;
     }
 
-    public void setFechaAlta(Date FechaAlta) {
+    public void setFechaAlta(String FechaAlta) {
         this.FechaAlta = FechaAlta;
     }
+
+    public int getUsuario_idUsuario() {
+        return Usuario_idUsuario;
+    }
+
+    public void setUsuario_idUsuario(int Usuario_idUsuario) {
+        this.Usuario_idUsuario = Usuario_idUsuario;
+    }
+    
+    
 
     @Override
     public int hashCode() {
