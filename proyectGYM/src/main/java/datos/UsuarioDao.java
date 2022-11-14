@@ -9,10 +9,13 @@ import dominio.Usuario;
 import java.sql.Connection;
 import static datos.Conexion.getConnection;
 import static datos.Conexion.close;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +25,7 @@ import java.util.List;
  */
 public class UsuarioDao {
     private static final String SQL_SELECT = "SELECT * FROM Usuario";
-    private static final String SQL_INSERT = "INSERT INTO Usuario (Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta, Usuario_idUsuario) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO Usuario (Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE Usuario SET Nombre=?, Correo=?, Clave=?, Gimnasio=?, Edad=?, Altura=?, Peso=?, Foto=? WHERE idUsuario=?";
     private static final String SQL_DELETE = "DELETE FROM Usuario WHERE idUsuario=?";
     
@@ -46,8 +49,8 @@ public class UsuarioDao {
                 stmt.setInt(6, usuarios.getAltura());
                 stmt.setInt(7, usuarios.getPeso());
                 stmt.setString(8, usuarios.getFoto());
-                stmt.setString(9, usuarios.getFechaAlta());
-                stmt.setInt(10, usuarios.getUsuario_idUsuario());
+                stmt.setDate(9, usuarios.getFechaAlta());
+                //stmt.setDate(9, (Date) Date.from(usuarios.getFechaAlta().atStartOfDay(ZoneId.systemDefault()).toInstant()));
                 
                 registros = stmt.executeUpdate();
                 
@@ -144,11 +147,12 @@ public class UsuarioDao {
             int Altura = rs.getInt("Altura");
             int Peso = rs.getInt("Peso");
             String Foto = rs.getString("Foto");
-            String FechaAlta = rs.getString("FechaAlta");
-            int Usuario_idUsuario = rs.getInt("Usuario_idUsuario");
+            Date FechaAlta = rs.getDate("FechaAlta");
+            
+            
            
             
-            usuarios.add(new Usuario (idUsuario, Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta, Usuario_idUsuario));
+            usuarios.add(new Usuario (idUsuario, Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta));
         }
         
         close(rs);
@@ -156,6 +160,8 @@ public class UsuarioDao {
         close(conn);
         return usuarios;
     }
+
+  
     
     
 }

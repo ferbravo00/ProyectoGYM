@@ -23,14 +23,13 @@ public class Usuario {
     private int Altura;
     private int Peso;
     private String Foto;
-    private String FechaAlta;
-    private int Usuario_idUsuario;
+    private Date FechaAlta;
 
     public Usuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(int idUsuario, String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto, String FechaAlta, int Usuario_idUsuario) {
+    public Usuario(int idUsuario, String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto, Date FechaAlta) {
         this.idUsuario = idUsuario;
         this.Nombre = Nombre;
         this.Correo = Correo;
@@ -40,6 +39,7 @@ public class Usuario {
         this.Altura = Altura;
         this.Peso = Peso;
         this.Foto = Foto;
+        this.FechaAlta = FechaAlta;
     }
 
     public Usuario(String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto) {
@@ -51,9 +51,8 @@ public class Usuario {
         this.Altura = Altura;
         this.Peso = Peso;
         this.Foto = Foto;
-        LocalDate Fecha = LocalDate.now();
-        this.FechaAlta = Fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.Usuario_idUsuario = 0;
+        this.FechaAlta = Date.valueOf(LocalDate.now());
+        //this.FechaAlta = Fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         
     }
 
@@ -132,23 +131,14 @@ public class Usuario {
         this.Foto = Foto;
     }
 
-    public String getFechaAlta() {
+    public Date getFechaAlta() {
         return FechaAlta;
     }
 
-    public void setFechaAlta(String FechaAlta) {
+    public void setFechaAlta(Date FechaAlta) {
         this.FechaAlta = FechaAlta;
     }
 
-    public int getUsuario_idUsuario() {
-        return Usuario_idUsuario;
-    }
-
-    public void setUsuario_idUsuario(int Usuario_idUsuario) {
-        this.Usuario_idUsuario = Usuario_idUsuario;
-    }
-    
-    
 
     @Override
     public int hashCode() {
@@ -178,7 +168,7 @@ public class Usuario {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Usuario{idUsuario=").append(idUsuario);
+        sb.append("idUsuario=").append(idUsuario);
         sb.append(", Nombre=").append(Nombre);
         sb.append(", Correo=").append(Correo);
         sb.append(", Clave=").append(Clave);
