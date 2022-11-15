@@ -18,6 +18,13 @@ public class Gymbros {
         this.idUsuarioAmigo = idUsuarioAmigo;
     }
 
+    public Gymbros(int idUsuarioAmigo) {
+        this.idUsuarioAmigo = idUsuarioAmigo;
+    }
+
+    public Gymbros() {
+    }
+
     
     
     public int getIdUsuario() {
@@ -34,6 +41,40 @@ public class Gymbros {
 
     public void setIdUsuarioAmigo(int idUsuarioAmigo) {
         this.idUsuarioAmigo = idUsuarioAmigo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 83 * hash + this.idUsuario;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Gymbros other = (Gymbros) obj;
+        if (this.idUsuario != other.idUsuario) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{idUsuario=").append(idUsuario);
+        sb.append(", idUsuarioAmigo=").append(idUsuarioAmigo);
+        sb.append('}');
+        return sb.toString();
     }
     
     
