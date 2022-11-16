@@ -42,6 +42,7 @@ public class Usuario {
         this.FechaAlta = FechaAlta;
     }
 
+
     public Usuario(String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto) {
         this.Nombre = Nombre;
         this.Correo = Correo;

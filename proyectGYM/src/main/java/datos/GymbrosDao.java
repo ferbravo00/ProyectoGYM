@@ -22,7 +22,7 @@ import java.util.List;
  * @author Alumno Mañana
  */
 public class GymbrosDao {
-    private static final String SQL_SELECTAMIGOS = "SELECT idUsuarioAmigo FROM gymbros where idUsuario=?";
+    private static final String SQL_SELECTAMIGOS = "SELECT * FROM gymbros where idUsuario=?";
     private static final String SQL_SELECT = "SELECT * FROM gymbros";
     private static final String SQL_INSERT = "INSERT INTO gymbros (idUsuario, idUsuarioAmigo) VALUE (?, ?)";
     private static final String SQL_DELETE = "DELETE FROM gymbros WHERE idUsuarioAmigo=?";
@@ -106,5 +106,29 @@ public class GymbrosDao {
         return amigos;
     }
     
+    
+    public List<Gymbros> mostrarAmigos(Usuario u) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        conn = getConnection();
+        stmt =conn.prepareStatement(SQL_SELECTAMIGOS);
+        stmt.setInt(1, u.getIdUsuario());
+        rs = stmt.executeQuery();
+                
+                
+        while(rs.next()){
+            int idUsuario = rs.getInt("idUsuario");
+            int idUsuarioAmigo = rs.getInt("idUsuarioAmigo");
+
+            amigo.add(new Gymbros (idUsuario, idUsuarioAmigo));
+        }
+        
+        close(rs);
+        close(stmt);
+        close(conn);
+        return amigo;
+    }
+
     
 }
