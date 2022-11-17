@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Alumno Mañana
  */
-public class EjercicioDao {
+public class EjercicioDao implements InterfazEjercicio{
     
     private static final String SQL_SELECTCUERPO = "SELECT Nombre, Foto, Descripcion, ParteCuerpo FROM ejercicio where ParteCuerpo=?";
     private static final String SQL_SELECT = "SELECT * FROM ejercicio";
