@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Alumno Mañana
  */
-public class GymbrosDao {
+public class GymbrosDao implements InterfazGymbros{
     private static final String SQL_SELECTAMIGOS = "SELECT * FROM gymbros where idUsuario=?";
     private static final String SQL_SELECT = "SELECT * FROM gymbros";
     private static final String SQL_INSERT = "INSERT INTO gymbros (idUsuario, idUsuarioAmigo) VALUE (?, ?)";

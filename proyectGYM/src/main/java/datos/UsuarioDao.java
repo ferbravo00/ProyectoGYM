@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author Alumno Mañana
  */
-public class UsuarioDao {
+public class UsuarioDao implements InterfazUsuario{
     private static final String SQL_SELECT = "SELECT * FROM Usuario";
     private static final String SQL_INSERT = "INSERT INTO Usuario (Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE Usuario SET Nombre=?, Correo=?, Clave=?, Gimnasio=?, Edad=?, Altura=?, Peso=?, Foto=? WHERE idUsuario=?";

@@ -9,6 +9,7 @@ import datos.EjercicioDao;
 import datos.UsuarioDao;
 import dominio.Gymbros;
 import datos.GymbrosDao;
+import datos.InterfazUsuario;
 import dominio.Ejercicio;
 import dominio.Usuario;
 import java.sql.Date;
@@ -26,7 +27,7 @@ public class TestMysql {
     
     public static void main(String[] args) {
         
-        UsuarioDao usuarioDao = new UsuarioDao();
+        InterfazUsuario usuarioDao = new UsuarioDao();
         GymbrosDao gymbrosDao = new GymbrosDao();
         EjercicioDao ejercicioDao = new EjercicioDao();
         
