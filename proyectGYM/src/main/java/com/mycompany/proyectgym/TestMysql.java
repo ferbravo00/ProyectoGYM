@@ -5,11 +5,9 @@
  */
 package com.mycompany.proyectgym;
 
-import datos.EjercicioDao;
-import datos.UsuarioDao;
+
 import dominio.Gymbros;
-import datos.GymbrosDao;
-import datos.InterfazUsuario;
+import datos.*;
 import dominio.Ejercicio;
 import dominio.Usuario;
 import java.sql.Date;
@@ -28,8 +26,8 @@ public class TestMysql {
     public static void main(String[] args) {
         
         InterfazUsuario usuarioDao = new UsuarioDao();
-        GymbrosDao gymbrosDao = new GymbrosDao();
-        EjercicioDao ejercicioDao = new EjercicioDao();
+        InterfazGymbros gymbrosDao = new GymbrosDao();
+        InterfazEjercicio ejercicioDao = new EjercicioDao();
         
         Usuario u1 = new Usuario ("Fer", "fer@gmail.com", "contraseña", "centro del agua", 22, 176, 72, "foto");
         Usuario u2 = new Usuario ("Jon", "Jon@gmail.com", "contraseña", "elite", 22, 176, 72, "foto");
