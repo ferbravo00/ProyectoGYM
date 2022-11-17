@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +23,11 @@ import java.util.logging.Logger;
  * @author Alumno Mañana
  */
 public class TestMysql {
+    
+    
+    static Scanner ent = new Scanner(System.in);
+    
+    
     
     public static void main(String[] args) {
         
@@ -44,13 +50,18 @@ public class TestMysql {
             //System.out.println(u1);
             //usuarioDao.eliminar(u1);
             //usuarioDao.actualizar(u4);
+            //ejercicioDao.insertar(e1);
+            //ejercicioDao.insertar(e2);
+            //ejercicioDao.insertar(e3);
+            //ejercicioDao.insertar(e4);
             //ejercicioDao.insertar(e5);
+            
             //usuarioDao.insertar(u3);
+        menu();    
             
-  
-        
+         /*
         try {
-            
+           
             List<Usuario> usuarios = usuarioDao.seleccionar();
             usuarios.forEach(u ->{
                 System.out.println("Usuario: "+u);
@@ -76,16 +87,57 @@ public class TestMysql {
             ejercicio.forEach(u ->{
                 System.out.println("Ejercicio: "+u);
             });
-            /*
+            
             
             
             List<Ejercicio> ejercicios = ejercicioDao.mostrarCuerpo(e);
             ejercicios.forEach(u ->{
                 System.out.println(u.getParteCuerpo()+": "+u.getNombre()+", "+u.getDescripcion()+", "+u.getFoto());
             });
-            */
+            
         } catch (SQLException ex) {
             Logger.getLogger(TestMysql.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        */
     }
+    
+    public static void menu(){
+        
+        InterfazUsuario usuarioDao = new UsuarioDao();
+        Usuario u = new Usuario();
+        int opcion=-1;//variable para el menú
+        while(opcion!=0){
+            System.out.println("\n\n\t=============");
+            System.out.println("\t=  APP GYM  =");
+            System.out.println("\t=============\n");
+            System.out.printf("\t(1) - Iniciar Sesión\n");
+            System.out.printf("\t(2) - Registrarse\n");
+            System.out.printf("\t(0) - SALIR\n");
+            opcion = ent.nextInt();
+            switch(opcion){
+                case 1:
+                    
+                    System.out.println("Ingresa tu Nombre: ");
+                    ent.nextLine();
+                    String nombre = ent.nextLine();
+                    System.out.println("Ingresa tu Clave: ");
+                    String clave = ent.nextLine();
+                    ent.nextLine();
+
+                    break;
+                case 2:
+                    
+                    break;
+                case 0:
+                    System.out.println("\n\nGracias por usar la aplicación :)\n");
+                    break;
+                default:
+                    System.out.printf("\nElija entre 0 y 2\n\n");
+                    break;
+            }
+            ent.nextLine();      
+        }
+    }
+    
 }
