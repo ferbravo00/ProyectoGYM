@@ -68,21 +68,23 @@ public class TestMysql {
             gymbro.forEach(g ->{
                 System.out.println("Gymbro: "+ g);
             });
-            /*
+            
             for (int i = 0; i < gymbro.size(); i++) {
                 System.out.println(gymbro.get(i));
-            }*/
+            }
             
             List<Ejercicio> ejercicio = ejercicioDao.mostrar();
             ejercicio.forEach(u ->{
                 System.out.println("Ejercicio: "+u);
             });
+            /*
+            
             
             List<Ejercicio> ejercicios = ejercicioDao.mostrarCuerpo(e);
             ejercicios.forEach(u ->{
                 System.out.println(u.getParteCuerpo()+": "+u.getNombre()+", "+u.getDescripcion()+", "+u.getFoto());
             });
-            
+            */
         } catch (SQLException ex) {
             Logger.getLogger(TestMysql.class.getName()).log(Level.SEVERE, null, ex);
         }
