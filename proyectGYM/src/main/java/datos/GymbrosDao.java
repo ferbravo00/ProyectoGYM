@@ -107,13 +107,13 @@ public class GymbrosDao implements InterfazGymbros{
     }
     
     
-    public List<Gymbros> mostrarAmigos(Usuario u) throws SQLException {
+    public List<Gymbros> mostrarAmigos(int u) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         conn = getConnection();
         stmt =conn.prepareStatement(SQL_SELECTAMIGOS);
-        stmt.setInt(1, u.getIdUsuario());
+        stmt.setInt(1, u);
         rs = stmt.executeQuery();
                 
                 

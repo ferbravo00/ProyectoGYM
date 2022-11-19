@@ -18,7 +18,7 @@ public interface InterfazEjercicio {
     public List<Ejercicio> ejercicio = new ArrayList<>();
     public int insertar(Ejercicio ejercicio);
     public int actualizar(Ejercicio ejercicio);
-    public int eliminar(Ejercicio ejercicio);
+    public int eliminar(int ejercicio);
     public List<Ejercicio> mostrar() throws SQLException;
-    public List<Ejercicio> mostrarCuerpo(Ejercicio u) throws SQLException;
+    public List<Ejercicio> mostrarCuerpo(String u) throws SQLException;
 }

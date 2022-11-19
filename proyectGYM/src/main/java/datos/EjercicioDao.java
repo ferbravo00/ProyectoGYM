@@ -73,11 +73,11 @@ public class EjercicioDao implements InterfazEjercicio{
             conn = getConnection();
             stmt =conn.prepareStatement(SQL_UPDATE);
 
-            stmt.setInt(1, ejercicio.getIdEjercicio());
-            stmt.setString(2, ejercicio.getNombre());
-            stmt.setString(3, ejercicio.getFoto());
-            stmt.setString(4, ejercicio.getDescripcion());
-            stmt.setString(5, ejercicio.getParteCuerpo());
+            stmt.setInt(5, ejercicio.getIdEjercicio());
+            stmt.setString(1, ejercicio.getNombre());
+            stmt.setString(2, ejercicio.getFoto());
+            stmt.setString(3, ejercicio.getDescripcion());
+            stmt.setString(4, ejercicio.getParteCuerpo());
 
             registros = stmt.executeUpdate();
 
@@ -96,7 +96,7 @@ public class EjercicioDao implements InterfazEjercicio{
 
     
     
-    public int eliminar(Ejercicio ejercicio){
+    public int eliminar(int ejercicio){
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -105,7 +105,7 @@ public class EjercicioDao implements InterfazEjercicio{
             conn = getConnection();
             stmt =conn.prepareStatement(SQL_DELETE);
 
-            stmt.setInt(1, ejercicio.getIdEjercicio());
+            stmt.setInt(1, ejercicio);
 
             registros = stmt.executeUpdate();
 
@@ -147,13 +147,13 @@ public class EjercicioDao implements InterfazEjercicio{
         return ejercicio;
     }
     
-    public List<Ejercicio> mostrarCuerpo(Ejercicio u) throws SQLException {
+    public List<Ejercicio> mostrarCuerpo(String u) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         conn = getConnection();
         stmt =conn.prepareStatement(SQL_SELECTCUERPO);
-        stmt.setString(1, u.getParteCuerpo());
+        stmt.setString(1, u);
         rs = stmt.executeQuery();
                 
                 

@@ -16,6 +16,10 @@ import java.util.List;
 public interface InterfazUsuario {
     public int insertar(Usuario usuarios);
     public int actualizar(Usuario usuarios);
-    public int eliminar(Usuario usuarios);
+    public int eliminar(int usuarios);
     public List<Usuario> seleccionar() throws SQLException;
+    public List<Usuario> mostrarId(int u) throws SQLException;
+    public int mostrarNombre(String u) throws SQLException;
+    public int comprobar(String nombre, String clave);
+    public int comprobar(String nombre);
 }

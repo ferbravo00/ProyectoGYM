@@ -21,5 +21,5 @@ public interface InterfazGymbros {
     public int insertar(Gymbros amigos);
     public int eliminar(Gymbros amigos);
     public List<Gymbros> mostrar() throws SQLException;
-    public List<Gymbros> mostrarAmigos(Usuario u) throws SQLException;
+    public List<Gymbros> mostrarAmigos(int u) throws SQLException;
 }

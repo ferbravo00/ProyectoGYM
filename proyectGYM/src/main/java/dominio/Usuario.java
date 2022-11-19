@@ -29,6 +29,20 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
+    public Usuario(int idUsuario, String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto) {
+        this.idUsuario = idUsuario;
+        this.Nombre = Nombre;
+        this.Correo = Correo;
+        this.Clave = Clave;
+        this.Gimnasio = Gimnasio;
+        this.Edad = Edad;
+        this.Altura = Altura;
+        this.Peso = Peso;
+        this.Foto = Foto;
+    }
+
+    
+    
     public Usuario(int idUsuario, String Nombre, String Correo, String Clave, String Gimnasio, int Edad, int Altura, int Peso, String Foto, Date FechaAlta) {
         this.idUsuario = idUsuario;
         this.Nombre = Nombre;

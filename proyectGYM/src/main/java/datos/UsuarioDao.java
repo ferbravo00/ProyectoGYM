@@ -18,6 +18,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +27,8 @@ import java.util.List;
  */
 public class UsuarioDao implements InterfazUsuario{
     private static final String SQL_SELECT = "SELECT * FROM Usuario";
+    private static final String SQL_SELECTID = "SELECT * FROM Usuario WHERE idUsuario=?";
+    private static final String SQL_SELECTNAME = "SELECT idUsuario FROM Usuario WHERE Nombre=?";
     private static final String SQL_INSERT = "INSERT INTO Usuario (Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE Usuario SET Nombre=?, Correo=?, Clave=?, Gimnasio=?, Edad=?, Altura=?, Peso=?, Foto=? WHERE idUsuario=?";
     private static final String SQL_DELETE = "DELETE FROM Usuario WHERE idUsuario=?";
@@ -85,6 +89,7 @@ public class UsuarioDao implements InterfazUsuario{
             stmt.setInt(6, usuarios.getAltura());
             stmt.setInt(7, usuarios.getPeso());
             stmt.setString(8, usuarios.getFoto());
+            stmt.setInt(9, usuarios.getIdUsuario());
 
             registros = stmt.executeUpdate();
 
@@ -102,7 +107,7 @@ public class UsuarioDao implements InterfazUsuario{
     }
 
 
-    public int eliminar(Usuario usuarios){
+    public int eliminar(int usuarios){
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -111,7 +116,7 @@ public class UsuarioDao implements InterfazUsuario{
             conn = getConnection();
             stmt =conn.prepareStatement(SQL_DELETE);
 
-            stmt.setInt(1, usuarios.getIdUsuario());
+            stmt.setInt(1, usuarios);
 
             registros = stmt.executeUpdate();
 
@@ -160,8 +165,89 @@ public class UsuarioDao implements InterfazUsuario{
         close(conn);
         return usuarios;
     }
+    
+    public List<Usuario> mostrarId(int u) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        conn = getConnection();
+        stmt =conn.prepareStatement(SQL_SELECTID);
+        stmt.setInt(1, u);
+        rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            int idUsuario = rs.getInt("idUsuario");
+            String Nombre = rs.getString("Nombre");
+            String Correo = rs.getString("Correo");
+            String Clave = rs.getString("Clave");
+            String Gimnasio = rs.getString("Gimnasio");
+            int Edad = rs.getInt("Edad");
+            int Altura = rs.getInt("Altura");
+            int Peso = rs.getInt("Peso");
+            String Foto = rs.getString("Foto");
+            Date FechaAlta = rs.getDate("FechaAlta");
+            
+            
+           
+            
+            usuarios.add(new Usuario (idUsuario, Nombre, Correo, Clave, Gimnasio, Edad, Altura, Peso, Foto, FechaAlta));
+        }
+        
+        close(rs);
+        close(stmt);
+        close(conn);
+        return usuarios;
+    }
+    
+    public int mostrarNombre(String u) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        conn = getConnection();
+        stmt =conn.prepareStatement(SQL_SELECTNAME);
+        stmt.setString(1, u);
+        rs = stmt.executeQuery();
+        
+        while(rs.next()){
+            int idUsuario = rs.getInt("idUsuario");
+            return idUsuario;
+            //usuarios.add(new Usuario (idUsuario));
+        }
+        
+        close(rs);
+        close(stmt);
+        close(conn);
+        return 0;
+    }
 
-  
+    public int comprobar(String nombre, String clave){
+        try {
+            int num = seleccionar().size();     //Lo he tenido que meter en una variable para que funcione...
+            for (int i = 0; i < num; i++) {
+                //System.out.println(seleccionar().size());
+                if(seleccionar().get(i).getNombre().equalsIgnoreCase(nombre) && seleccionar().get(i).getClave().equalsIgnoreCase(clave)){
+                    return 1;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return 0;  
+    }
+      
+    public int comprobar(String nombre){
+        try {
+            int num = seleccionar().size();     //Lo he tenido que meter en una variable para que funcione...
+            for (int i = 0; i < num; i++) {
+                if(seleccionar().get(i).getNombre().equalsIgnoreCase(nombre)){
+                    return 1;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        return 0;
+    }
     
     
 }
