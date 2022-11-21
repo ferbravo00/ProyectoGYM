@@ -6,9 +6,14 @@
 package datos;
 
 import dominio.Usuario;
+import manejoArchivos.ManejoArchivos;
 import java.sql.Connection;
 import static datos.Conexion.getConnection;
 import static datos.Conexion.close;
+import java.io.File;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.sql.PreparedStatement;
@@ -248,6 +253,60 @@ public class UsuarioDao implements InterfazUsuario{
         }
         return 0;
     }
+    
+    
+    public void actualizarArchivoUsuarios(){
+        
+        String contenido ="";
+        //File archivo = new File("src/main/java/datos/usuario.txt");
+        try {
+            int num = seleccionar().size();
+            for (int i = 0; i < num; i++) {
+            
+            contenido += (seleccionar().get(i)+"\n");
+            }
+            ManejoArchivos.escribir("usuario.txt",contenido);
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    public String cifrarMD5(String input) throws Exception {
+        String md5 = null;
+        if (null == input)
+            return null;
+        try {
+            // Create MessageDigest object for MD5
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            // Update input string in message digest
+            digest.update(input.getBytes(), 0, input.length());
+            // Converts message digest value in base 16 (hex)
+            md5 = new BigInteger(1, digest.digest()).toString(16);
+        } catch (NoSuchAlgorithmException e) {
+
+            throw e;
+        }
+        return md5;
+    }
+    
+//    public boolean compararMD5(String orig, String compare){
+//        String md5 = null;
+//        try{
+//            MessageDigest md = MessageDigest.getInstance("MD5");
+//            md.update(compare.getBytes());
+//            byte[] digest = md.digest();
+//            md5 = new BigInteger(1, digest).toString(16);
+//
+//            return md5.equals(orig);
+//
+//        } catch (NoSuchAlgorithmException e) {
+//            //return false;
+//        }
+//
+//        return false;
+//    }
     
     
 }

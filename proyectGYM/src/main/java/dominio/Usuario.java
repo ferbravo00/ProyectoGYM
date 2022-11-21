@@ -71,10 +71,10 @@ public class Usuario {
         
     }
 
-    public Usuario(String Nombre, String Clave) {
-        this.Nombre = Nombre;
-        this.Clave = Clave;
-    }
+//    public Usuario(String Nombre, String Clave) {
+//        this.Nombre = Nombre;
+//        this.Clave = Clave;
+//    }
 
     
     

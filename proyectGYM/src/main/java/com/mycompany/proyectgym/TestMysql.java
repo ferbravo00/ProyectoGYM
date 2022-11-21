@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import manejoArchivos.ManejoArchivos;
 
 /**
  *
@@ -29,7 +30,7 @@ public class TestMysql {
     
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         
         InterfazUsuario usuarioDao = new UsuarioDao();
         InterfazGymbros gymbrosDao = new GymbrosDao();
@@ -61,7 +62,11 @@ public class TestMysql {
         
         try {
             //System.out.println(usuarioDao.mostrarId(usuarioDao.mostrarNombre("Fer")));
+            //usuarioDao.actualizarArchivoUsuarios();
             menu();
+//            System.out.println(usuarioDao.cifrarMD5("hola"));
+//            System.out.println(usuarioDao.cifrarMD5("hola"));
+//            System.out.println(usuarioDao.cifrarMD5("hola").equals("4d186321c1a7f0f354b297e8914ab240"));
             
             /*
         List<Usuario> usuarios = usuarioDao.seleccionar();
@@ -92,9 +97,9 @@ public class TestMysql {
         } catch (SQLException ex) {
         Logger.getLogger(TestMysql.class.getName()).log(Level.SEVERE, null, ex);
         }
-             }
+    }
     
-    public static void menu() throws SQLException{
+    public static void menu() throws SQLException, Exception{
         
         InterfazUsuario usuarioDao = new UsuarioDao();
         //Usuario u = new Usuario();
@@ -115,7 +120,7 @@ public class TestMysql {
                     String nombre = ent.nextLine();
                     System.out.println("Ingresa tu Clave: ");
                     String clave = ent.nextLine();
-                    if (usuarioDao.comprobar(nombre, clave)==1) {
+                    if (usuarioDao.comprobar(nombre, usuarioDao.cifrarMD5(clave))==1) {
                         System.out.println("Hola "+nombre+", a darle duro :)");
                         int idUser = usuarioDao.mostrarNombre(nombre);
                         menuUsuario(idUser,nombre);
@@ -150,8 +155,9 @@ public class TestMysql {
                     int peso = ent.nextInt();
                     System.out.println("Ingresa una Foto(Opcional): ");
                     String foto = ent.nextLine();
-                    Usuario u = new Usuario (name, correo, pass, gym, edad, altura, peso, foto);
+                    Usuario u = new Usuario (name, correo,usuarioDao.cifrarMD5(pass), gym, edad, altura, peso, foto);
                     usuarioDao.insertar(u);
+                    usuarioDao.actualizarArchivoUsuarios();
                     System.out.println("BIENVENIDO/A "+name.toUpperCase()+" A ESTA GRAN FAMILIA :)");
                     break;
                 case 0:
@@ -165,7 +171,7 @@ public class TestMysql {
         }
     }
     
-    public static void menuUsuario(int id, String nombre) throws SQLException{
+    public static void menuUsuario(int id, String nombre) throws SQLException, Exception{
         InterfazGymbros gymbrosDao = new GymbrosDao();
         InterfazUsuario usuarioDao = new UsuarioDao();
         int opcion=-1;
@@ -207,8 +213,9 @@ public class TestMysql {
                     int peso = ent.nextInt();
                     System.out.println("Ingresa una Foto(Opcional): ");
                     String foto = ent.nextLine();
-                    Usuario u = new Usuario (id, name, correo, pass, gym, edad, altura, peso, foto);
+                    Usuario u = new Usuario (id, name, correo, usuarioDao.cifrarMD5(pass), gym, edad, altura, peso, foto);
                     usuarioDao.actualizar(u);
+                    usuarioDao.actualizarArchivoUsuarios();
                     System.out.println("Datos actualizados correctamente :)");
                     break;
                 case 3:
@@ -285,6 +292,7 @@ public class TestMysql {
                     System.out.println("Introduzca el ID del Usuario que desea eliminar:");
                     //int ert =ent.nextInt();
                     usuarioDao.eliminar(ent.nextInt());
+                    usuarioDao.actualizarArchivoUsuarios();
                     System.out.println("Usuario eliminado correctamente :) ");
                     
                     break;    

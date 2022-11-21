@@ -22,4 +22,7 @@ public interface InterfazUsuario {
     public int mostrarNombre(String u) throws SQLException;
     public int comprobar(String nombre, String clave);
     public int comprobar(String nombre);
+    public void actualizarArchivoUsuarios();
+    public String cifrarMD5(String input) throws Exception;
+    //public boolean compararMD5(String orig, String compare);
 }
