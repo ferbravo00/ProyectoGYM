@@ -42,7 +42,7 @@ public class TestMysql {
         Usuario u3 = new Usuario ("Nacho", "Nacho@gmail.com", "contraseña", "Karol", 22, 176, 72, "foto");
         Usuario u7 = new Usuario ("Ana", "Ana@gmail.com", "123", "centro del agua", 22, 176, 72, "foto");
         Usuario u4 = new Usuario (9);
-        Gymbros g1 = new Gymbros (8,9);
+        Gymbros g1 = new Gymbros (12,13);
         
         Ejercicio e1 = new Ejercicio ("Remo unilateral", "Foto", "Este es un ejercicio para trabajar la unilateralidad", "Espalda");
         Ejercicio e2 = new Ejercicio ("Remo en punta", "Foto", "Este es un ejercicio para trabajar la unilateralidad", "Espalda");
@@ -56,7 +56,7 @@ public class TestMysql {
         //ejercicioDao.insertar(e1);
         //ejercicioDao.insertar(e2);
         //ejercicioDao.insertar(e3);
-        //ejercicioDao.insertar(e4);
+//        gymbrosDao.insertar(g1);
         //ejercicioDao.insertar(e5);
         //usuarioDao.insertar(u7);
         
@@ -187,6 +187,7 @@ public class TestMysql {
             System.out.printf("\t(2) - Editar Perfil\n");
             System.out.printf("\t(3) - Mostrar Amigos\n");
             System.out.printf("\t(4) - Mostrar todos los ejercicios\n");
+            System.out.printf("\t(5) - Buscar ejercicio por grupo muscular\n");
             System.out.printf("\t(0) - VOLVER\n");
             opcion = ent.nextInt();
             switch(opcion){
@@ -224,11 +225,24 @@ public class TestMysql {
                     System.out.println("Datos actualizados correctamente :)");
                     break;
                 case 3:
-                    gymbrosDao.mostrarAmigos(id);
+                    
+                    List<Gymbros> gymbros = gymbrosDao.mostrarAmigos(id);
+                    gymbros.forEach(bros ->{
+                    System.out.println("Ejercicio: "+bros);
+                    });
                     break;
                 case 4:
                     List<Ejercicio> ejercicio = ejercicioDao.mostrar();
                     ejercicio.forEach(ejer ->{
+                    System.out.println("Ejercicio: "+ejer);
+                    });
+                    break;
+                case 5:
+                    ent.nextLine();
+                    System.out.println("Ingresa la parte del cuerpo: ");
+                    String cuerpo=ent.nextLine();
+                    List<Ejercicio> ejercicios = ejercicioDao.mostrarCuerpo(cuerpo);
+                    ejercicios.forEach(ejer ->{
                     System.out.println("Ejercicio: "+ejer);
                     });
                     break;
