@@ -8,6 +8,7 @@ package com.mycompany.proyectgym;
 
 import dominio.Gymbros;
 import datos.*;
+import static datos.InterfazEjercicio.ejercicio;
 import dominio.Ejercicio;
 import dominio.Usuario;
 import java.sql.Date;
@@ -154,6 +155,7 @@ public class TestMysql {
                     System.out.println("Ingresa tu Peso: ");
                     int peso = ent.nextInt();
                     System.out.println("Ingresa una Foto(Opcional): ");
+                    ent.nextLine();
                     String foto = ent.nextLine();
                     Usuario u = new Usuario (name, correo,usuarioDao.cifrarMD5(pass), gym, edad, altura, peso, foto);
                     usuarioDao.insertar(u);
@@ -174,6 +176,8 @@ public class TestMysql {
     public static void menuUsuario(int id, String nombre) throws SQLException, Exception{
         InterfazGymbros gymbrosDao = new GymbrosDao();
         InterfazUsuario usuarioDao = new UsuarioDao();
+        InterfazEjercicio ejercicioDao = new EjercicioDao();
+        //Ejercicio e = new Ejercicio ();
         int opcion=-1;
         while(opcion!=0){
             System.out.println("\n\n\t=============");
@@ -181,7 +185,8 @@ public class TestMysql {
             System.out.println("\t=============\n");
             System.out.printf("\t(1) - Perfil\n");
             System.out.printf("\t(2) - Editar Perfil\n");
-            System.out.printf("\t(2) - Mostrar Amigos\n");
+            System.out.printf("\t(3) - Mostrar Amigos\n");
+            System.out.printf("\t(4) - Mostrar todos los ejercicios\n");
             System.out.printf("\t(0) - VOLVER\n");
             opcion = ent.nextInt();
             switch(opcion){
@@ -221,11 +226,17 @@ public class TestMysql {
                 case 3:
                     gymbrosDao.mostrarAmigos(id);
                     break;
+                case 4:
+                    List<Ejercicio> ejercicio = ejercicioDao.mostrar();
+                    ejercicio.forEach(ejer ->{
+                    System.out.println("Ejercicio: "+ejer);
+                    });
+                    break;
                 case 0:
-                    System.out.println("\n\nGracias por usar la aplicación :)\n");
+                    System.out.println("\n\nPulse ENTER para continuar... :)\n");
                     break;
                 default:
-                    System.out.printf("\nElija entre 0 y 2\n\n");
+                    System.out.printf("\nElija entre 0 y 3\n\n");
                     break;
             }
             ent.nextLine();      
@@ -253,7 +264,7 @@ public class TestMysql {
                     menuAdminEjer();
                     break;
                 case 0:
-                    System.out.println("\n\nGracias por usar la aplicación :)\n");
+                    System.out.println("\n\nPulse ENTER para continuar... :)\n");
                     break;
                 default:
                     System.out.printf("\nElija entre 0 y 2\n\n");
@@ -297,10 +308,10 @@ public class TestMysql {
                     
                     break;    
                 case 0:
-                    
+                    System.out.println("\n\nPulse ENTER para continuar... :)\n");
                     break;
                 default:
-                    System.out.printf("\nElija entre 0 y 2\n\n");
+                    System.out.printf("\nElija entre 0 y 3\n\n");
                     break;
             }
             ent.nextLine();      
@@ -364,9 +375,10 @@ public class TestMysql {
                     ejercicioDao.eliminar(ent.nextInt());
                     break;
                 case 0:
+                    System.out.println("\n\nPulse ENTER para continuar... :)\n");
                     break;
                 default:
-                    System.out.printf("\nElija entre 0 y 2\n\n");
+                    System.out.printf("\nElija entre 0 y 3\n\n");
                     break;
             }
             ent.nextLine();      
