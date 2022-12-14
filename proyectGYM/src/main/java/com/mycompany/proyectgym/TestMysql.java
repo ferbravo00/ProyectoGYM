@@ -61,6 +61,7 @@ public class TestMysql {
         //usuarioDao.insertar(u7);
         
         
+                
         try {
             //System.out.println(usuarioDao.mostrarId(usuarioDao.mostrarNombre("Fer")));
             //usuarioDao.actualizarArchivoUsuarios();
